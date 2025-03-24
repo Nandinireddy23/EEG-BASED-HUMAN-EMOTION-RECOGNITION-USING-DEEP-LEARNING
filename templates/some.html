@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<br>
+<br>
+<br>
+<br>
+<br>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{ message }},
+            <br>
+            Please wait, you will be redirected to the login page in <span id="countdown">15</span> seconds.
+            <br>
+            If not redirected, <a href="{% url 'login' %}">Return to Login</a>.
+        </div>
+    {% endfor %}
+{% endif %}
+<script>
+    var countdown = 8; // Initial countdown value
+    var countdownElement = document.getElementById('countdown');
+
+    function updateCountdown() {
+        countdown--;
+        countdownElement.textContent = countdown;
+        if (countdown <= 0) {
+            window.location.href = "{% url 'login' %}"; // Redirect to login page when countdown reaches 0
+        }
+    }
+
+    setInterval(updateCountdown, 800); // Update countdown every 1.5 seconds
+</script>
+{% endblock %}

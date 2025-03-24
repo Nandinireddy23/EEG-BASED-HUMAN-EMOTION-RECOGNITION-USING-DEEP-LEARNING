@@ -1,0 +1,92 @@
+{% extends 'admins/adminbase.html' %}
+{% block contents %}
+<style>
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination a {
+        color: #333;
+        display: inline-block;
+        padding: 6px 12px;
+        margin: 2px;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .pagination .current {
+        font-weight: bold;
+    }
+
+    .pagination a:hover {
+        background-color: #f5f5;
+    }
+</style>
+<center><form method="GET" action="{% url 'RegisterUsersView' %}">
+    <input type="text" name="q" placeholder="Search..." value="{% if query %}{{ query }}{% endif %}" >
+    <button type="submit">Search</button>
+
+    {% if query %}
+    <button><a href="{% url 'RegisterUsersView' %}">Clear</a></button>
+    {% endif %}
+</form></center>
+<section id="intro">
+    <div class="intro-text">
+        <p><h3 align="center">View Register User Details</h3></p>
+        <table class="table table-bordered bg-light text-dark">
+            <thead>
+                <tr style="color: teal">
+                    <th>S.No</th>
+                    <th>Username & Login ID</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr style="color: brown">
+                    <td>{{ start_serial|add:forloop.counter0 }}</td>
+                    <td>{{ i.loginid }}</td>
+                    <td>{{ i.mobile }}</td>
+                    <td>{{ i.email }}</td>
+                    <td>{{ i.status }}</td>
+                    {% if i.status == 'waiting' %}
+                    <td>
+                        <a class="btn-link" href="/ActivaUsers/?uid={{ i.id }}" style="color: darkblue">Activate</a>
+                        /
+                        <a class="btn-link" href="/DeleteUsers/?uid={{ i.id }}" style="color: darkblue">Delete</a>
+                    </td>
+                    {% else %}
+                    <td><a class="btn-link" href="/DeleteUsers/?uid={{ i.id }}" style="color: darkblue">Delete</a>
+                        /
+                        <a class="btn-link" href="/BlockUsers/?uid={{ i.id }}" style="color: darkblue">Block</a></td>
+
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if data.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ data.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ data.number }} of {{ data.paginator.num_pages }}.
+            </span>
+    
+            {% if data.has_next %}
+                <a href="?page={{ data.next_page_number }}">next</a>
+                <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</section>
+{% endblock %}

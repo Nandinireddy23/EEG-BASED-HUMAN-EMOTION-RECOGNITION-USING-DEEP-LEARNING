@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>EEG | User panel</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div id="logo">
+        <h1><a href="#"><span><u>EEG - </u></span> <u>Emotion Recognition</u></a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto " href="{% url 'UserHome' %}">Home</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'deapResults' %}">Deap Result</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'Training' %}">Training</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'StartEmotions' %}">Human Emotions</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'profile' %}">Profile</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'index' %}">Logout</a></li>
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container" data-aos="fade-in">
+      <img src="../static/img/dani.jpg" alt="Hero Image" data-aos="zoom-out" data-aos-delay="100">
+    </div>
+  </section><!-- End Hero Section -->
+
+  <main id="main">
+    <br><br><br><br>
+
+    <!-- Training Results Section -->
+    {% if training_results %}
+      <h2>Training Results</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Accuracy</strong></td>
+            <td>{{ training_results.accuracy }}</td>
+          </tr>
+          <tr>
+            <td><strong>Validation Accuracy</strong></td>
+            <td>{{ training_results.val_accuracy }}</td>
+          </tr>
+          <tr>
+            <td><strong>Loss</strong></td>
+            <td>{{ training_results.loss }}</td>
+          </tr>
+          <tr>
+            <td><strong>Validation Loss</strong></td>
+            <td>{{ training_results.val_loss }}</td>
+          </tr>
+        </tbody>
+      </table>
+    {% else %}
+      <p>No training results available.</p>
+    {% endif %}
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="newsletter text-center">
+      <div class="overlay padd-section">
+        <div class="container" data-aos="zoom-in">
+          <div class="row justify-content-center">
+            <div class="col-md-9 col-lg-6">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Newsletter Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="copyrights">
+          <div class="container">
+            <p>&copy; Copyrights <b>house_price_prediction.</b> All rights reserved.</p>
+            <div class="credits">
+              Designed by <a href="#"><b>house_price_prediction.</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

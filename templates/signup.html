@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+ /* Form container */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    box-sizing: border-box;
+    border: 1px;
+    border-color: #000000;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
+}
+
+/* Form input fields */
+.form-container input[type=text], 
+.form-container input[type=email], 
+.form-container input[type=password] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #c11c1c;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s;
+    /* Add border color */
+    border-color: #000000; /* Adjust border color as needed */
+}
+
+/* Form input fields on focus */
+.form-container input[type=text]:focus, 
+.form-container input[type=email]:focus, 
+.form-container input[type=password]:focus {
+    border-color: #4CAF50;
+}
+
+/* Form submit button */
+.form-container button[type=submit] {
+    width: calc(100% - 24px);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Form submit button on hover */
+.form-container button[type=submit]:hover {
+    background-color: #45a049;
+}
+.form-container button[type=reset] {
+    width: calc(100% - 24px);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #4ca3af;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+form-container button[type=reset]:hover {
+    background-color: #45a049;
+}
+
+/* Highlight h1 tag with 4k text */
+.form-container h1 {
+    font-size: 4k;
+    color: rgb(3, 3, 62);
+}
+
+.card {
+    border: 3px solid #dee2e6; /* Add border to the card */
+    border-radius: 0.50rem; /* Optional: Add border radius */
+    
+}
+.card-header {
+    color: #dee2e6;
+    border-bottom: 1px solid #dee2e6; /* Add border to the card header */
+    background-color: black; /* Optional: Change background color of the header */
+}
+
+</style>
+<br><br>
+<br>
+
+<div class="form-container">
+    <center><h1></h1></center>
+    <div class="card-header">
+        <span style="font-weight: bold; font-family: Arial, sans-serif;">USER SIGNUP FORM:</span>
+    </div>
+    <br>
+        <marquee behavior="alternate" direction="" style="color: rgb(3, 28, 28);">Account will be created on bases of Email OTP Verification:</marquee>
+        <marquee behavior="alternate" direction="" style="color: rgb(3, 28, 28);">User Should Need To Enter Valid EMAIL To Get The OTP:</marquee>
+        <br><br>
+    <form action="{% url 'signupfunction' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+        <br>
+        
+        {% if form.errors %}
+        <div class="error-message">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    </form>
+
+</div>
+
+<script>
+// Clear form fields and error messages
+window.onload = function() {
+    // Clear form fields
+    var inputs = document.querySelectorAll('.form-container input[type="text"], .form-container input[type="email"], .form-container input[type="password"]');
+    inputs.forEach(function(input) {
+        input.value = '';
+    });
+
+    // Clear error messages
+    var errorMessages = document.querySelectorAll('.error-message p');
+    errorMessages.forEach(function(errorMessage) {
+        errorMessage.textContent = ''; // Clear the text content
+    });
+
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+}
+</script>
+{% endblock %}
+
+
+
+

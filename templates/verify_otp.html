@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        #timer {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #countdown {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        button[type="submit"] {
+            width: 100%;
+        }
+        #resendButton {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Verify OTP</h1>
+        <p id="timer">OTP expires in, Time remaining: <span id="countdown"></span></p>
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success" role="alert">{{ message }}</div>
+            {% elif message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% elif message.tags == 'info' %}
+                <div class="alert alert-danger" role="alert">{{ message }}</div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+        <form id="otpForm" method="POST" action="{% url 'verify_otp' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="otp">Enter OTP</label>
+                <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter OTP">
+            </div>
+            <button type="submit" class="btn btn-primary">Verify OTP</button>
+        </form>
+        <button id="resendButton" class="btn btn-dark mt-3" disabled>Resend OTP</button>
+    </div>
+
+    <script>
+        var countdown = 75; // Duration of the timer in seconds (1 minute 15 seconds)
+        var timerDisplay = document.getElementById('countdown');
+        var resendButton = document.getElementById('resendButton');
+        var otpForm = document.getElementById('otpForm');
+
+        function startTimer() {
+            var minutes, seconds;
+            var timer = setInterval(function () {
+                minutes = parseInt(countdown / 60, 10);
+                seconds = parseInt(countdown % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerDisplay.textContent = minutes + ":" + seconds;
+
+                if (--countdown < 0) {
+                    clearInterval(timer);
+                    // Enable resend button after timer expires
+                    resendButton.disabled = false;
+                    timerDisplay.textContent = "00:00";
+                }
+            }, 1000);
+        }
+
+        // Call the startTimer function when the page loads
+        startTimer();
+
+        // Function to handle OTP resend
+        resendButton.addEventListener('click', function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/resend-otp/', true);
+            xhr.send();
+            // Update UI as needed
+            countdown = 75; // Reset the countdown timer to 1 minute 15 seconds
+            startTimer(); // Restart the timer
+            this.disabled = true; // Disable the resend button after clicking
+        });
+    </script>
+</body>
+</html>

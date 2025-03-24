@@ -1,0 +1,91 @@
+{% extends 'users/userbase.html' %}
+
+{% block contents %}
+<style>
+  .profile-table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Add margin between table rows */
+    text-align: left;
+  }
+
+  .profile-table th,
+  .profile-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .profile-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .profile-table .highlight {
+    background-color: #ffd700;
+    padding: 3px 8px;
+    border-radius: 5px;
+  }
+
+  .profile-table .error {
+    color: red;
+    font-weight: bold;
+  }
+</style>
+<section id="hero">
+  <div class="hero-container" data-aos="fade-in">
+    <div class="container">
+      <h1>User Profile</h1>
+      {% if user_profile %}
+      <h2>Welcome, {{ user_profile.loginid }}</h2>
+      <div class="table-responsive">
+        <table class="profile-table">
+          <tr>
+            <th>Field</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td><strong>Login ID:</strong></td>
+            <td><span style="text-transform:uppercase;font-size: 16px;">{{ user_profile.loginid }}</span></td>
+          </tr>
+          <tr>
+            <td><strong>Email:</strong></td>
+            <td>{{ user_profile.email }}</td>
+          </tr>
+          <tr>
+            <td><strong>Mobile:</strong></td>
+            <td>{{ user_profile.mobile }}</td>
+          </tr>
+          <tr>
+            <td><strong>City:</strong></td>
+            <td>{{ user_profile.city }}</td>
+          </tr>
+          <tr>
+            <td><strong>State:</strong></td>
+            <td>{{ user_profile.state }}</td>
+          </tr>
+          <tr>
+            <td><strong>Status:</strong></td>
+            <td>{{ user_profile.status }}</td>
+          </tr>
+          <tr>
+            <td><strong>Signin Time:</strong></td>
+            <td><span class="highlight">{{ signin_time }}</span></td>
+          </tr>
+          <tr>
+            <td><strong>Last Login:</strong></td>
+            <td><span class="highlight">{{ last_login }}</span></td>
+          </tr>
+          <!-- Add other profile fields as needed -->
+          <tr>
+            <td colspan="2"><a href="#" class="btn btn-danger">Logout</a></td>
+          </tr>
+        </table>
+      </div>
+      {% else %}
+      <p class="error">User profile not found.</p>
+      {% endif %}
+    </div>
+  </div>
+</section><!-- End Hero Section -->
+{% endblock %}

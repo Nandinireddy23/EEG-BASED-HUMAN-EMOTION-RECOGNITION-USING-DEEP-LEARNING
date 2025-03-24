@@ -1,0 +1,42 @@
+{% extends 'users/userbase.html' %}
+{% block contents %}
+
+<section id="intro">
+    <div class="intro-text">
+        <h3 align="center" style="color: teal;">Deap Dataset Result</h3>
+
+        <center>
+            <h4>Training History</h4>
+            {% if history %}
+            <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 80%;">
+                <thead>
+                    <tr style="background-color: lightgray;">
+                        <th>Epoch</th>
+                        <th>Train Accuracy</th>
+                        <th>Validation Accuracy</th>
+                        <th>Train Loss</th>
+                        <th>Validation Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in history %}
+                    <tr>
+                        <td>{{ row.epoch }}</td>
+                        <td>{{ row.train_acc|floatformat:4 }}</td>
+                        <td>{{ row.val_acc|floatformat:4 }}</td>
+                        <td>{{ row.train_loss|floatformat:4 }}</td>
+                        <td>{{ row.val_loss|floatformat:4 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No training history available.</p>
+            {% endif %}
+
+            
+        </center>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'users/userbase.html'%}
+{%block contents%}
+
+<section id="intro">
+
+    <div class="intro-text">
+
+        <p>
+        <h3 align="center" style="color:teal;">Emotion Page.....</h3></p>
+        <table class="table table-bordered bg-light text-dark">
+            <thead>
+            <tr style="color:red;font-weight:bold;">
+                <th>S.No</th>
+                <th>Emotions</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in Emotions %}
+            <tr style="color: Green">
+                <td>{{forloop.counter}}</td>
+                <td>{{i}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
+{%endblock%}
