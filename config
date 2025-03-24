@@ -1,0 +1,19 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://github.com/Nandinireddy23/EGGHumanEmotion.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "EEG-Based-Human-Emotion-Recognition"]
+	url = https://github.com/Nandinireddy23/EEG-Based-Human-Emotion-Recognition-Using-Deep-Learning.git
+	fetch = +refs/heads/*:refs/remotes/EEG-Based-Human-Emotion-Recognition/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[remote "Nandu"]
+	url = https://github.com/Nandinireddy23/EEG-Based-Human-Emotion-Recognition-Using-Deep-Learning.git
+	fetch = +refs/heads/*:refs/remotes/Nandu/*
